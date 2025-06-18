@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Conselho de Classe - 3º Ano SESI Salto</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">SESI Salto</div>
+        <nav>
+            <a href="conselho-classe.html" class="active">Conselho de Classe</a>
+            <a href="pagina2.html">Página 2</a>
+            <a href="pagina3.html">Página 3</a>
+        </nav>
+        <div class="hamburger" id="sidebar-hamburger" aria-label="Abrir menu" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </aside>
+    <button class="toggle-dark" title="Alternar modo escuro" onclick="toggleDarkMode()">🌙</button>
+    <div class="main-content">
+        <h1 id="titulo">Conselho de Classe - 3º Ano SESI Salto</h1>
+        <p id="intro">Olá professores! Hoje viemos apresentar nossa participação para escola! Como a escola nos ajuda.<br>Nosso objetivo é ouvir, apoiar e representar todos os colegas da turma.</p>
+        <div class="representantes">
+            <div class="card" tabindex="0"
+                onmouseenter="mostrarCardMsg(this, 'Miguel')"
+                onmouseleave="ocultarCardMsg(this)"
+                onclick="mostrarCardMsg(this, 'Miguel')">
+                <img src="../IMG/miguel.jpg" alt="Foto de Miguel" class="card-foto" />
+                <h2>Miguel</h2>
+                <p>Representante de classe<br>3º Ano - SESI Salto</p>
+                <div class="card-msg" style="display:none;">Representante de classe, conversativo e participativo.</div>
+            </div>
+            <div class="card" tabindex="0"
+                onmouseenter="mostrarCardMsg(this, 'Bianca')"
+                onmouseleave="ocultarCardMsg(this)"
+                onclick="mostrarCardMsg(this, 'Bianca')">
+                <img src="../IMG/bianca.jpg" alt="Foto de Bianca" class="card-foto" />
+                <h2>Bianca</h2>
+                <p>Representante de classe<br>3º Ano - SESI Salto</p>
+                <div class="card-msg" style="display:none;">Vice representante de classe, sempre pronta para ajudar.</div>
+            </div>
+        </div>
+        <div class="welcome">
+            <button onclick="mostrarMensagem()">Clique para uma mensagem especial</button>
+            <p id="mensagem"></p>
+        </div>
+    </div>
+    <script>
+        // Sidebar hamburger menu (mobile)
+        const sidebar = document.getElementById('sidebar');
+        const sidebarHamburger = document.getElementById('sidebar-hamburger');
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
+        if (sidebarHamburger) {
+            sidebarHamburger.addEventListener('click', toggleSidebar);
+            sidebarHamburger.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    toggleSidebar();
+                }
+            });
+        }
+
+        // Fecha sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
+                if (!sidebar.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+
+        // Mensagem especial
+        function mostrarMensagem() {
+            const mensagem = "Contem sempre com a gente! Juntos, vamos fazer deste ano o melhor possível!";
+            const msgElem = document.getElementById('mensagem');
+            msgElem.textContent = mensagem;
+        }
+
+        // Mensagem dos representantes ao passar/clicar (sem efeito typing)
+        function mostrarCardMsg(card, nome) {
+            const msgDiv = card.querySelector('.card-msg');
+            msgDiv.style.display = "block";
+            card.classList.add('show-msg');
+        }
+        function ocultarCardMsg(card) {
+            const msgDiv = card.querySelector('.card-msg');
+            msgDiv.style.display = "none";
+            card.classList.remove('show-msg');
+        }
+
+        // Modo escuro
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
