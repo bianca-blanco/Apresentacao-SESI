@@ -6,7 +6,7 @@
     <title>Conhecimentos</title>
     <link rel="icon" type="image/png" href="../MEDIA/logo.png">
     <link rel="stylesheet" href="../CSS/style.css">
-    <style>
+        <style>
         .galeria-aprendizados {
             display: flex;
             flex-wrap: wrap;
@@ -17,29 +17,61 @@
         }
 
         .aprendizado-card {
+            width: 320px;
+            height: 420px;
+            perspective: 1200px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            margin-bottom: 0;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(.4,2.08,.55,.44);
+            transform-style: preserve-3d;
+        }
+
+        .aprendizado-card:hover .card-inner,
+        .aprendizado-card:focus-within .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(101,0,0,0.08);
+            background: var(--card-bg, #fff);
+            border: 2px solid var(--primary-dark, #a00);
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: var(--card-bg);
-            border-radius: 14px;
-            box-shadow: 0 4px 16px rgba(101,0,0,0.08);
-            padding: 18px 18px 12px 18px;
-            width: 320px;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            border: 2px solid var(--primary-dark);
-            text-align: center;
-            position: relative;
-            overflow: visible;
+            justify-content: center;
+            backface-visibility: hidden;
+            transition: background 0.3s, color 0.3s;
+            overflow: hidden;
         }
 
-        .aprendizado-card:hover {
-            transform: scale(1.04) rotate(-1deg);
-            box-shadow: 0 8px 32px rgba(123,0,0,0.18);
-            background: var(--primary-light);
-            color: #fff;
+        .card-front {
+            z-index: 2;
         }
 
-        .galeria-aprendizados .card-foto {
+        .card-back {
+            transform: rotateY(180deg);
+            z-index: 3;
+            background: #fff;
+            color: var(--primary-dark);
+            text-align: left;
+            font-size: 0.98rem;
+            overflow-y: auto;
+            padding-left: 2px;
+        }
+
+        .card-foto {
             width: 100%;
             max-width: 260px;
             aspect-ratio: 1/1;
@@ -47,102 +79,76 @@
             object-fit: cover;
             border-radius: 16px;
             margin-bottom: 14px;
-            border: 3px solid var(--primary-dark);
+            border: 3px solid var(--primary-dark, #a00);
             background: #fff;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: border 0.3s;
             display: block;
         }
 
-        .aprendizado-card p {
+        .card-front p {
             margin: 0;
-            color: var(--primary-dark);
+            color: var(--primary-dark, #a00);
             font-size: 1.05rem;
             font-weight: 500;
             transition: color 0.3s;
         }
 
-        .aprendizado-card:hover .card-foto {
-            border: 3px solid var(--accent);
+        .aprendizado-card:hover .card-foto,
+        .aprendizado-card:focus-within .card-foto {
+            border: 3px solid var(--accent, #e00);
         }
-        .aprendizado-card:hover p {
+        .aprendizado-card:hover .card-front p,
+        .aprendizado-card:focus-within .card-front p {
+            color: #fff;
+        }
+        .aprendizado-card:hover .card-front,
+        .aprendizado-card:focus-within .card-front {
+            background: var(--primary-light, #a00);
             color: #fff;
         }
 
-        .card-popup {
-        display: none;
-        position: absolute;
-        top: calc(100% + 10px); /* Fica abaixo do card */
-        left: 50%;
-        transform: translateX(-50%);
-        background: #fff;
-        color: var(--primary-dark);
-        border-radius: 8px;
-        box-shadow: 0 4px 16px rgba(101,0,0,0.12);
-        padding: 12px 18px;
-        font-size: 1rem;
-        font-weight: 500;
-        min-width: 260px;
-        z-index: 9999;
-        pointer-events: none;
-        white-space: normal;
-        text-align: left;
-        }
-
-
-        .aprendizado-card:hover .card-popup,
-        .aprendizado-card:focus-within .card-popup {
-            display: block;
-            animation: fadeIn 0.2s;
-        }
-
-        .card-popup ul {
-            margin: 10px 0 0 18px;
-            padding: 0;
-            font-size: 0.98rem;
-        }
-
-        .card-popup li {
-            margin-bottom: 3px;
-        }
-
-        .card-popup .popup-titulo {
+        .card-back .popup-titulo {
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
             margin-bottom: 2px;
             color: var(--accent, #a00);
+            font-size: 1rem;
+        }
+        .card-back ul {
+            margin: 8px 0 0 16px;
+            padding: 0;
+            font-size: 0.95rem;
+        }
+        .card-back li {
+            margin-bottom: 2px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        /* Dark mode */
+        .dark-mode .card-front,
+        .dark-mode .card-back {
+            background: var(--card-bg-dark, #222);
+            color: var(--text-light, #fff);
+            border-color: var(--primary-darkmode-dark, #fff);
         }
-
-        .dark-mode .aprendizado-card {
-            background: var(--card-bg-dark);
-            border-color: var(--primary-darkmode-dark);
+        .dark-mode .card-front p {
+            color: var(--text-light, #fff);
         }
-        .dark-mode .aprendizado-card:hover {
-            background: var(--primary-darkmode-dark);
-            color: var(--text-light);
-        }
-        .dark-mode .galeria-aprendizados .card-foto {
-            border: 3px solid var(--primary-darkmode-dark);
-            background: var(--primary-darkmode-dark);
-        }
-        .dark-mode .aprendizado-card:hover .card-foto {
-            border: 3px solid var(--accent);
-        }
-        .dark-mode .aprendizado-card p {
-            color: var(--text-light);
-        }
-        .dark-mode .aprendizado-card:hover p {
+        .dark-mode .aprendizado-card:hover .card-front,
+        .dark-mode .aprendizado-card:focus-within .card-front {
+            background: var(--primary-darkmode-dark, #111);
             color: #fff;
         }
-        .dark-mode .card-popup {
-            background: var(--primary-darkmode-dark);
-            color: var(--text-light);
-            box-shadow: 0 4px 16px rgba(74,0,124,0.18);
+        .dark-mode .card-foto {
+            border: 3px solid var(--primary-darkmode-dark, #fff);
+            background: var(--primary-darkmode-dark, #111);
+        }
+        .dark-mode .aprendizado-card:hover .card-foto,
+        .dark-mode .aprendizado-card:focus-within .card-foto {
+            border: 3px solid var(--accent, #e00);
+        }
+        .dark-mode .card-back .popup-titulo {
+            color: var(--accent, #ffb3b3);
         }
     </style>
 </head>
@@ -167,139 +173,166 @@
         Confira alguns dos nossos melhores momentos de aprendizado!</p>
         <div class="galeria-aprendizados">
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Visita técnica à TOTVS para conhecer o ambiente de trabalho e inovação.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Resolução de problemas, pensamento crítico e criatividade.</li>
-                        <li><b>Interpessoal:</b> Trabalho em equipe, comunicação e colaboração.</li>
-                        <li><b>Intrapessoal:</b> Autonomia, autoconhecimento e responsabilidade.</li>
-                        <li><b>Cidadania Global:</b> Compreensão do papel da tecnologia na sociedade e respeito à diversidade.</li>
-                        <li><b>Ambiente Escolar:</b> Estimula a inovação e o interesse pelo futuro profissional, tornando o ambiente mais motivador.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://media.licdn.com/dms/image/v2/D4D22AQFe6eQuz1zvlQ/feedshare-shrink_1280/B4DZcPVxe_GwAo-/0/1748309056515?e=1753315200&v=beta&t=odTKmggFsU9HH7PFxONW03ysjTnF4PfxPQN7ieCCx58" alt="Projeto de Ciências" class="card-foto" />
+                        <p>Ida a TOTVS</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Resolução de problemas, pensamento crítico e criatividade.</li>
+                            <li><b>Interpessoal:</b> Trabalho em equipe, comunicação e colaboração.</li>
+                            <li><b>Intrapessoal:</b> Autonomia, autoconhecimento e responsabilidade.</li>
+                            <li><b>Cidadania Global:</b> Compreensão do papel da tecnologia na sociedade e respeito à diversidade.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="https://media.licdn.com/dms/image/v2/D4D22AQFe6eQuz1zvlQ/feedshare-shrink_1280/B4DZcPVxe_GwAo-/0/1748309056515?e=1753315200&v=beta&t=odTKmggFsU9HH7PFxONW03ysjTnF4PfxPQN7ieCCx58" alt="Projeto de Ciências" class="card-foto" />
-                <p>Ida a TOTVS</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Simulado preparatório para o ENEM, com ambiente realista e desafios de provas anteriores.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Gestão do tempo, interpretação de textos e raciocínio lógico.</li>
-                        <li><b>Interpessoal:</b> Compartilhamento de estratégias e apoio mútuo.</li>
-                        <li><b>Intrapessoal:</b> Controle emocional e autoconfiança.</li>
-                        <li><b>Cidadania Global:</b> Respeito às regras e ética durante avaliações.</li>
-                        <li><b>Ambiente Escolar:</b> Promove disciplina e espírito de superação coletiva.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/desbrava.jpg" alt="Desbrava ENEM" class="card-foto" />
+                        <p>Desbrava ENEM: Simulado imersivo</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Gestão do tempo, interpretação de textos e raciocínio lógico.</li>
+                            <li><b>Interpessoal:</b> Compartilhamento de estratégias e apoio mútuo.</li>
+                            <li><b>Intrapessoal:</b> Controle emocional e autoconfiança.</li>
+                            <li><b>Cidadania Global:</b> Respeito às regras e ética durante avaliações.</li>
+                            <li><b>Ambiente Escolar:</b> Promove disciplina e espírito de superação coletiva.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/desbrava.jpg" alt="Desbrava ENEM" class="card-foto" />
-                <p>Desbrava ENEM: Simulado imersivo</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Aulão especial focado em técnicas de redação para o ENEM, com dicas e bate-papo ao vivo.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Argumentação, escrita e análise crítica.</li>
-                        <li><b>Interpessoal:</b> Troca de ideias e respeito à opinião do outro.</li>
-                        <li><b>Intrapessoal:</b> Expressão de sentimentos e autodesenvolvimento.</li>
-                        <li><b>Cidadania Global:</b> Discussão de temas sociais e empatia.</li>
-                        <li><b>Ambiente Escolar:</b> Incentiva o protagonismo e a participação ativa.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/enem.jpg" alt="Aulão Enem" class="card-foto" />
+                        <p>Aulão Enem: Aula de redação</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Argumentação, escrita e análise crítica.</li>
+                            <li><b>Interpessoal:</b> Troca de ideias e respeito à opinião do outro.</li>
+                            <li><b>Intrapessoal:</b> Expressão de sentimentos e autodesenvolvimento.</li>
+                            <li><b>Cidadania Global:</b> Discussão de temas sociais e empatia.</li>
+                            <li><b>Ambiente Escolar:</b> Incentiva o protagonismo e a participação ativa.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/enem.jpg" alt="Aulão Enem" class="card-foto" />
-                <p>Aulão Enem: Aula de redação</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Apresentação da festa junina organizada pelo 3º ano, "a última dança".
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Planejamento e organização de eventos.</li>
-                        <li><b>Interpessoal:</b> Cooperação, liderança e respeito às diferenças.</li>
-                        <li><b>Intrapessoal:</b> Senso de pertencimento e autoestima.</li>
-                        <li><b>Cidadania Global:</b> Valorização da cultura e tradição.</li>
-                        <li><b>Ambiente Escolar:</b> Fortalece vínculos e promove integração entre turmas.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/Sem nome (500 x 350 px) (1) (1).png" alt="Festa Junina" class="card-foto" />
+                        <p>Festa Junina: Arraiá terceirão</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Planejamento e organização de eventos.</li>
+                            <li><b>Interpessoal:</b> Cooperação, liderança e respeito às diferenças.</li>
+                            <li><b>Intrapessoal:</b> Senso de pertencimento e autoestima.</li>
+                            <li><b>Cidadania Global:</b> Valorização da cultura e tradição.</li>
+                            <li><b>Ambiente Escolar:</b> Fortalece vínculos e promove integração entre turmas.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/Sem nome (500 x 350 px) (1) (1).png" alt="Festa Junina" class="card-foto" />
-                <p>Festa Junina: Arraiá terceirão</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Participação em torneios esportivos entre unidades SESI, promovendo integração e espírito de equipe.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Estratégia, tomada de decisão e foco.</li>
-                        <li><b>Interpessoal:</b> Trabalho em equipe, respeito e liderança.</li>
-                        <li><b>Intrapessoal:</b> Resiliência, disciplina e autossuperação.</li>
-                        <li><b>Cidadania Global:</b> Espírito esportivo e respeito às diferenças.</li>
-                        <li><b>Ambiente Escolar:</b> Estimula a convivência saudável e o respeito mútuo.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/intersesi.jpg" alt="Copa Intersesi" class="card-foto" />
+                        <p>Copa Intersesi: Evento esportivo</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Estratégia, tomada de decisão e foco.</li>
+                            <li><b>Interpessoal:</b> Trabalho em equipe, respeito e liderança.</li>
+                            <li><b>Intrapessoal:</b> Resiliência, disciplina e autossuperação.</li>
+                            <li><b>Cidadania Global:</b> Espírito esportivo e respeito às diferenças.</li>
+                            <li><b>Ambiente Escolar:</b> Estimula a convivência saudável e o respeito mútuo.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/intersesi.jpg" alt="Copa Intersesi" class="card-foto" />
-                <p>Copa Intersesi: Evento esportivo</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Experimento sensorial, com o objetivo de estimular os sentimentos e a criatividade para a escrita de um poema.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Estímulo à criatividade, interpretação sensorial e expressão artística.</li>
-                        <li><b>Interpessoal:</b> Compartilhamento de experiências, empatia e escuta ativa.</li>
-                        <li><b>Intrapessoal:</b> Autoconhecimento, sensibilidade e desenvolvimento emocional.</li>
-                        <li><b>Cidadania Global:</b> Valorização da diversidade de sentimentos e respeito às diferentes formas de expressão.</li>
-                        <li><b>Ambiente Escolar:</b> Torna o ambiente mais acolhedor, incentivando a livre expressão e o respeito mútuo.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/atividade_sensorial.jpeg" alt="Atividade Sensorial" class="card-foto" />
+                        <p>Atividade Sensorial: Escrita de poema.</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Estímulo à criatividade, interpretação sensorial e expressão artística.</li>
+                            <li><b>Interpessoal:</b> Compartilhamento de experiências, empatia e escuta ativa.</li>
+                            <li><b>Intrapessoal:</b> Autoconhecimento, sensibilidade e desenvolvimento emocional.</li>
+                            <li><b>Cidadania Global:</b> Valorização da diversidade de sentimentos e respeito às diferentes formas de expressão.</li>
+                            <li><b>Ambiente Escolar:</b> Torna o ambiente mais acolhedor, incentivando a livre expressão e o respeito mútuo.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/atividade_sensorial.jpeg" alt="Atividade Sensorial" class="card-foto" />
-                <p>Atividade Sensorial: Escrita de poema.</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Descrição da Roda de Leitura, promovendo a reflexão sobre diferentes perspectivas e a valorização da diversidade de ideias.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Observação, análise crítica e interpretação de textos.</li>
-                        <li><b>Interpessoal:</b> Troca de experiências, respeito mútuo e escuta ativa.</li>
-                        <li><b>Intrapessoal:</b> Autonomia, autoconfiança e desenvolvimento do pensamento próprio.</li>
-                        <li><b>Cidadania Global:</b> Consciência social, respeito à diversidade e empatia.</li>
-                        <li><b>Ambiente Escolar:</b> Incentiva o protagonismo estudantil e o diálogo construtivo.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/a_vida_n_e_util.jpeg" alt="Roda de Leitura" class="card-foto" />
+                        <p>Roda de Leitura: "A Vida Não É Útil", de Airton Krenak</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Observação, análise crítica e interpretação de textos.</li>
+                            <li><b>Interpessoal:</b> Troca de experiências, respeito mútuo e escuta ativa.</li>
+                            <li><b>Intrapessoal:</b> Autonomia, autoconfiança e desenvolvimento do pensamento próprio.</li>
+                            <li><b>Cidadania Global:</b> Consciência social, respeito à diversidade e empatia.</li>
+                            <li><b>Ambiente Escolar:</b> Incentiva o protagonismo estudantil e o diálogo construtivo.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/a_vida_n_e_util.jpeg" alt="Roda de Leitura" class="card-foto" />
-                <p>Roda de Leitura: "A Vida Não É Útil", de Airton Krenak</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Descrição da Roda de Leitura, promovendo a reflexão sobre diferentes perspectivas e a valorização da diversidade de ideias.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Aplicação de conhecimentos teóricos.</li>
-                        <li><b>Interpessoal:</b> Colaboração e empatia.</li>
-                        <li><b>Intrapessoal:</b> Reflexão e autodesenvolvimento.</li>
-                        <li><b>Cidadania Global:</b> Visão crítica sobre o mundo.</li>
-                        <li><b>Ambiente Escolar:</b> Aproxima teoria e prática, tornando o aprendizado mais significativo.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/olhos_dagua.jpeg" alt="Roda de Leitura" class="card-foto" />
+                        <p>Roda de Leitura: "Olhos d'Água", de Conceição Evaristo</p>
+                    </div>
+                    <div class="card-back">
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Aplicação de conhecimentos teóricos.</li>
+                            <li><b>Interpessoal:</b> Colaboração e empatia.</li>
+                            <li><b>Intrapessoal:</b> Reflexão e autodesenvolvimento.</li>
+                            <li><b>Cidadania Global:</b> Visão crítica sobre o mundo.</li>
+                            <li><b>Ambiente Escolar:</b> Aproxima teoria e prática, tornando o aprendizado mais significativo.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/olhos_dagua.jpeg" alt="Roda de Leitura" class="card-foto" />
-                <p>Roda de Leitura: "Olhos d'Água", de Conceição Evaristo</p>
             </div>
             <div class="aprendizado-card">
-                <div class="card-popup">
-                    Descrição do Terceirão, destacando a importância do encerramento de ciclo, união da turma e superação de desafios ao longo do ano.
-                    <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
-                    <ul>
-                        <li><b>Cognição:</b> Pesquisa e investigação.</li>
-                        <li><b>Interpessoal:</b> Compartilhamento de descobertas.</li>
-                        <li><b>Intrapessoal:</b> Motivação para aprender.</li>
-                        <li><b>Cidadania Global:</b> Respeito à diversidade cultural e social.</li>
-                        <li><b>Ambiente Escolar:</b> Estimula a curiosidade e o engajamento dos alunos.</li>
-                    </ul>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="../MEDIA/camisas].jpg" alt="Terceirão" class="card-foto" />
+                        <p>Momentos Terceirão</p>
+                    </div>
+                    <div class="card-back">
+            
+                        <div class="popup-titulo">Competências e Habilidades Desenvolvidas:</div>
+                        <ul>
+                            <li><b>Cognição:</b> Pesquisa e investigação.</li>
+                            <li><b>Interpessoal:</b> Compartilhamento de descobertas.</li>
+                            <li><b>Intrapessoal:</b> Motivação para aprender.</li>
+                            <li><b>Cidadania Global:</b> Respeito à diversidade cultural e social.</li>
+                            <li><b>Ambiente Escolar:</b> Estimula a curiosidade e o engajamento dos alunos.</li>
+                        </ul>
+                    </div>
                 </div>
-                <img src="../MEDIA/camisas].jpg" alt="Terceirão" class="card-foto" />
-                <p>Momentos Terceirão</p>
             </div>
         </div>
     </div>
