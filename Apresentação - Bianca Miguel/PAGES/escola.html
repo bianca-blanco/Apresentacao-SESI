@@ -30,6 +30,27 @@
             Aqui, valorizamos a formação integral, o respeito à diversidade e a construção de um ambiente acolhedor, seguro e inspirador.<br>
             Conheça um pouco mais sobre nossa estrutura, localização e o que faz do SESI Salto um lugar especial para estudar e crescer!<br>
         </p>
+        <div class="fotos-escola">
+            <h2>Fotos da Escola</h2>
+            <p style="text-align:center; margin-bottom: 18px;">
+                Conheça um pouco mais do nosso espaço! Veja abaixo algumas imagens que mostram a estrutura acolhedora e moderna do SESI Salto.<br>
+            </p>
+            <div class="galeria-fotos" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 16px;">
+                <figure class="foto-escola-fig">
+                    <img src="../MEDIA/vista-escola.jpg" alt="Vista Panorâmica da escola" class="foto-escola">
+                    <figcaption>Vista panorâmica da escola</figcaption>
+                </figure>
+                <figure class="foto-escola-fig">
+                    <img src="../MEDIA/escola-quadra.png" alt="Quadra poliesportiva" class="foto-escola">
+                    <figcaption>Vista Parcial da Quadra poliesportiva</figcaption>
+                </figure>
+                <figure class="foto-escola-fig">
+                    <img src="../MEDIA/biblioteca-escola.jpg" alt="Biblioteca da escola" class="foto-escola">
+                    <figcaption>Biblioteca da escola</figcaption>
+                </figure>
+            </div>
+            <br>
+        </div>
         <section class="arquitetura-escola" style="margin-bottom: 32px;">
             <h2>Arquitetura do SESI Salto CE125</h2>
             <p style="margin-bottom: 12px;">
@@ -38,9 +59,13 @@
             <h3>Características principais:</h3>
             <ul style="margin-bottom: 12px;">
                 <li><strong>Planta modular e fragmentada:</strong> Blocos distribuídos de forma inteligente, formando módulos interligados que facilitam a circulação e aproveitam ao máximo a luz natural.<br></li>
+                <br>
                 <li><strong>Design limpo e formas retas:</strong> A predominância do branco e as linhas geométricas simples transmitem modernidade e leveza ao ambiente.<br></li>
+                <br>
                 <li><strong>Uso de painéis solares:</strong> Telhados equipados com painéis fotovoltaicos reforçam nosso compromisso com práticas sustentáveis e respeito ao meio ambiente.<br></li>
+                <br>
                 <li><strong>Espaços abertos:</strong> Pátios internos e áreas livres convidam à convivência, ao lazer e ao bem-estar de todos.<br></li>
+                <br>
                 <li><strong>Organização funcional:</strong> Os blocos formam uma disposição quase radial, semelhante ao formato de uma estrela, otimizando acessos e a distribuição dos ambientes.<br></li>
             </ul>
             <p>
@@ -55,29 +80,17 @@
                 <strong>Telefone:</strong> (11) 4029-1234<br>
             </p>
             <div class="mapa-escola" style="margin: 20px 0;">
-                <iframe 
+                <iframe
                     src="https://www.google.com/maps?q=SESI+Salto,+Av.+Marechal+Rondon,+3000,+Salto+-+SP&output=embed"
                     width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
             </div>
-        </div>
-        <div class="fotos-escola">
-            <h2>Fotos da Escola</h2>
-            <p style="text-align:center; margin-bottom: 18px;">
-                Conheça um pouco mais do nosso espaço! Veja abaixo algumas imagens que mostram a estrutura acolhedora e moderna do SESI Salto.<br>
-            </p>
-            <div class="galeria-fotos" style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 16px;">
-                <img src="../MEDIA/escola1.jpg" alt="Fachada da escola" class="foto-escola">
-                <img src="../MEDIA/escola2.jpg" alt="Quadra poliesportiva" class="foto-escola">
-                <img src="../MEDIA/escola3.jpg" alt="Biblioteca da escola" class="foto-escola">
-            </div>
-            <br>
         </div>
     </div>
     <style>
         /* Fotos da escola: moldura retangular com cantos levemente arredondados */
         .foto-escola {
-            width: 220px;
-            height: 140px;
+            width: 340px;
+            height: 210px;
             object-fit: cover;
             border-radius: 16px; /* Cantos levemente arredondados */
             border: 4px solid #e0e0e0;
@@ -85,14 +98,27 @@
             background: #fff;
             display: block;
         }
+        .foto-escola-fig {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+        .foto-escola-fig figcaption {
+            margin-top: 8px;
+            font-size: 1.05em;
+            color: #a00;
+            font-weight: 500;
+            text-align: center;
+        }
         @media (max-width: 600px) {
             .galeria-fotos {
                 flex-direction: column;
                 align-items: center;
             }
             .foto-escola {
-                width: 90vw;
-                height: 120px;
+                width: 98vw;
+                height: 180px;
             }
         }
     </style>
