@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conhecimentos</title>
+    <link rel="icon" type="image/png" href="../MEDIA/logo.png">
+    <link rel="stylesheet" href="../CSS/style.css">
+    <style>
+        /* Substitua ou ajuste no style.css para a galeria de aprendizados */
+        .galeria-aprendizados {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 36px;
+        }
+
+        .aprendizado-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--card-bg);
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(101,0,0,0.08);
+            padding: 18px 18px 12px 18px;
+            width: 220px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            border: 2px solid var(--primary-dark);
+            text-align: center;
+        }
+
+        .aprendizado-card:hover {
+            transform: scale(1.04) rotate(-1deg);
+            box-shadow: 0 8px 32px rgba(123,0,0,0.18);
+            background: var(--primary-light);
+            color: #fff;
+        }
+
+        .galeria-aprendizados .card-foto {
+            width: 100%;
+            max-width: 180px;
+            aspect-ratio: 1/1;
+            height: auto;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 14px;
+            border: 3px solid var(--primary-dark);
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: border 0.3s;
+            display: block;
+        }
+
+        .aprendizado-card p {
+            margin: 0;
+            color: var(--primary-dark);
+            font-size: 1.05rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .aprendizado-card:hover .card-foto {
+            border: 3px solid var(--accent);
+        }
+        .aprendizado-card:hover p {
+            color: #fff;
+        }
+
+        .dark-mode .aprendizado-card {
+            background: var(--card-bg-dark);
+            border-color: var(--primary-darkmode-dark);
+        }
+        .dark-mode .aprendizado-card:hover {
+            background: var(--primary-darkmode-dark);
+            color: var(--text-light);
+        }
+        .dark-mode .galeria-aprendizados .card-foto {
+            border: 3px solid var(--primary-darkmode-dark);
+            background: var(--primary-darkmode-dark);
+        }
+        .dark-mode .aprendizado-card:hover .card-foto {
+            border: 3px solid var(--accent);
+        }
+        .dark-mode .aprendizado-card p {
+            color: var(--text-light);
+        }
+        .dark-mode .aprendizado-card:hover p {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">SESI Salto</div>
+        <nav>
+            <a href="conselho-classe.html">Apresentando</a>
+            <a href="conhecimentos.html" class="active">Conhecimentos</a>
+            <a href="escola.html">A Escola</a>
+        </nav>
+        <div class="hamburger" id="sidebar-hamburger" aria-label="Abrir menu" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </aside>
+    <button class="toggle-dark" title="Alternar modo escuro" onclick="toggleDarkMode()">🌙</button>
+    <div class="main-content">
+        <h1 id="titulo">Conhecimentos - 3º Ano SESI Salto</h1>
+        <p id="intro">Aqui você encontra registros de aprendizados, projetos e conquistas do nosso 3º Ano do SESI Salto.<br>
+        Confira alguns dos nossos melhores momentos de aprendizado!</p>
+        <div class="galeria-aprendizados">
+            <div class="aprendizado-card">
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQFe6eQuz1zvlQ/feedshare-shrink_1280/B4DZcPVxe_GwAo-/0/1748309056515?e=1753315200&v=beta&t=odTKmggFsU9HH7PFxONW03ysjTnF4PfxPQN7ieCCx58" alt="Projeto de Ciências" class="card-foto" />
+                <p>Ida a TOTVS</p>
+            </div>
+            <div class="aprendizado-card">
+                <img src="../IMG/aprendizado2.jpg" alt="Feira de Matemática" class="card-foto" />
+                <p>Feira de Matemática: Jogos e desafios lógicos</p>
+            </div>
+            <div class="aprendizado-card">
+                <img src="../IMG/aprendizado3.jpg" alt="Apresentação de Teatro" class="card-foto" />
+                <p>Apresentação de Teatro: Expressão e criatividade</p>
+            </div>
+            <!-- Adicione mais cards de aprendizados conforme desejar -->
+        </div>
+    </div>
+    <script>
+        // Sidebar hamburger menu (mobile)
+        const sidebar = document.getElementById('sidebar');
+        const sidebarHamburger = document.getElementById('sidebar-hamburger');
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+        }
+        if (sidebarHamburger) {
+            sidebarHamburger.addEventListener('click', toggleSidebar);
+            sidebarHamburger.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    toggleSidebar();
+                }
+            });
+        }
+
+        // Fecha sidebar ao clicar fora (mobile)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
+                if (!sidebar.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            }
+        });
+
+        // Modo escuro
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
