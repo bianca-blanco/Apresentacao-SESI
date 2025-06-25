@@ -21,7 +21,14 @@
             <span></span>
         </div>
     </aside>
-    <button class="toggle-dark" title="Alternar modo escuro" onclick="toggleDarkMode()">🌙</button>
+    <!-- Botão dark/light estilo switch moderno -->
+    <button class="toggle-dark-switch" id="toggle-dark-btn" title="Alternar modo escuro" aria-label="Alternar modo escuro">
+        <span class="switch-bg">
+            <span class="switch-icon sun">&#9728;</span>
+            <span class="switch-icon moon">&#9790;</span>
+            <span class="switch-knob"></span>
+        </span>
+    </button>
     <div class="main-content">
         <h1 id="titulo">Nossa Escola - SESI Salto</h1>
         <p id="intro" style="font-size:1.15em; line-height:1.7; margin-bottom: 32px;">
@@ -110,6 +117,10 @@
             color: #a00;
             font-weight: 500;
             text-align: center;
+            transition: color 0.3s;
+        }
+        .dark-mode .foto-escola-fig figcaption {
+            color: #fff;
         }
         @media (max-width: 600px) {
             .galeria-fotos {
@@ -120,6 +131,80 @@
                 width: 98vw;
                 height: 180px;
             }
+        }
+        .toggle-dark-switch {
+            position: fixed;
+            top: 22px;
+            right: 32px;
+            z-index: 1001;
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .switch-bg {
+            width: 70px;
+            height: 32px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(90deg, #ffb300 60%, #ffd600 100%);
+            box-shadow: 0 2px 8px rgba(160,0,0,0.10);
+            transition: background 0.4s;
+        }
+        .switch-icon {
+            position: absolute;
+            font-size: 1.3em;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .sun {
+            left: 14px;
+            opacity: 1;
+        }
+        .moon {
+            right: 14px;
+            opacity: 0;
+        }
+        .switch-knob {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+            left: 4px;
+            top: 2px;
+            transition: left 0.4s cubic-bezier(.4,2.08,.55,.44), background 0.3s;
+        }
+        .dark-mode .switch-bg {
+            background: linear-gradient(90deg, #1e3a8a 60%, #2563eb 100%);
+        }
+        .dark-mode .sun {
+            opacity: 0;
+        }
+        .dark-mode .moon {
+            opacity: 1;
+        }
+        .dark-mode .switch-knob {
+            left: 38px;
+            background: #f3f3f3;
+        }
+        .toggle-dark-switch:hover,
+        .toggle-dark-switch:focus,
+        .toggle-dark-switch:active,
+        .dark-mode .toggle-dark-switch:hover,
+        .dark-mode .toggle-dark-switch:focus,
+        .dark-mode .toggle-dark-switch:active {
+            background: none;
+            outline: none;
+            box-shadow: none;
+            border: none;
         }
     </style>
     <script>
@@ -147,10 +232,16 @@
             }
         });
 
-        // Modo escuro apenas manual
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        // Switch dark/light
+        const toggleBtn = document.getElementById('toggle-dark-btn');
+        function updateSwitchBtn() {
+            // Só anima via CSS, nada a fazer aqui
         }
+        toggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            updateSwitchBtn();
+        });
+        updateSwitchBtn();
     </script>
 </body>
 </html>
